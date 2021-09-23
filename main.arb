@@ -1,0 +1,57 @@
+def caesar_cipher(string, key)
+    
+    puts "\"#{string}\" Key: #{key}"
+    if key > 0 && key < 27
+    #splits string into array
+    split_str = string.split(//)
+    #converts letters to ordinal number
+    str_to_ord = split_str.map {|letter| letter.ord}
+    #if char is alpha, num is incremented by key, else left alone
+    shift_ord = str_to_ord.map do |num|
+      if (num >= 97 && num <= 122)
+        ans = num + key
+        if ans > 122
+          new_ans = 96 + (ans % 122)
+          ans = new_ans
+        end
+      elsif (num >= 65 && num <= 90)
+        ans = num + key
+        if ans > 90
+          new_ans = 64 + (ans % 90)
+          ans = new_ans
+        end
+      else 
+        ans = num
+      end
+      ans
+    end
+    shift_ord
+  
+    ord_to_str = shift_ord.map do |num| 
+      num.chr
+    end
+  
+    ord_to_str.join
+    else
+    print "Key outside of range"
+    end
+  
+  end
+  
+  def start_game
+    print "Type a message to encrypt: "
+    text = gets.chomp
+    print "Enter a cipher key (1-25): "
+    shift = gets.chomp.to_i
+  
+    puts "Encrypted Message: #{caesar_cipher(text, shift)}"
+  end
+  start_game
+  
+  puts "go again? Y/N"
+  again = gets.chomp
+  if again == "Y"
+    start_game
+  else
+    exit
+  end
